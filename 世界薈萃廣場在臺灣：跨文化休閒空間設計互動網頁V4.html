@@ -1,0 +1,2608 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="dashboard">
+  <meta name="design-style" content="briefing">
+  <title>世界薈萃廣場在臺灣｜跨文化價值矛盾與融合空間設計檔案</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Briefing Style Core Tokens */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --tertiary: #785008;
+      --error: #b42318;
+      --on-error: #ffffff;
+
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
+
+      /* Accessible semantic surface/ink pairs */
+      --secondary-soft: #e8f1f4;
+      --tertiary-soft: #f6ead0;
+      --conflict-soft: #fceeed;
+      --conflict-ink: #8e2318;
+      --resolve-soft: #e9f4ee;
+      --resolve-ink: #1b523a;
+
+      /* Fonts (Traditional Chinese paired with Briefing editorial typography) */
+      --font-headline: 'Noto Serif TC', 'Source Serif 4', serif;
+      --font-body: 'Noto Sans TC', 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', 'Noto Sans TC', monospace;
+
+      /* Shape & Style Effects */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --hotspot-shadow: 0 2px 8px rgba(23, 24, 26, 0.28);
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+
+      /* 3. Shared Foundation Tokens */
+      --positive: #2b6e52;
+      --warning: #785008;
+      --focus: #1f4e5f;
+
+      /* Dashboard / Explorer Type Scale */
+      --display-size: clamp(1.75rem, 1.35rem + 1.4vw, 2.5rem);
+      --headline-size: clamp(1.25rem, 1.08rem + 0.6vw, 1.625rem);
+      --subhead-size: clamp(1.0625rem, 1rem + 0.25vw, 1.25rem);
+      --body-size: clamp(0.9375rem, 0.9rem + 0.15vw, 1rem);
+      --label-size: 0.75rem;
+
+      /* Spacing Scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base Reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+    button, input, select, textarea { font-family: inherit; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2.5px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1240px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Briefing Dossier Bars */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .dossier-bar-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .dossier-pill {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: var(--label-size);
+      letter-spacing: 0.04em;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .dossier-pill.is-ascii {
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      letter-spacing: 0.02em;
+    }
+
+    /* Typography */
+    .hero-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--display-size);
+      line-height: 1.15;
+      letter-spacing: var(--heading-tracking);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .hero-standfirst {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      color: var(--secondary);
+      margin: var(--space-sm) 0 var(--space-md);
+      max-width: 68ch;
+    }
+    .hero-context {
+      font-size: var(--body-size);
+      color: var(--on-surface-variant);
+      max-width: 74ch;
+      margin: 0;
+    }
+    .section-heading {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--headline-size);
+      line-height: 1.25;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-xs);
+    }
+    .section-standfirst {
+      font-weight: 600;
+      color: var(--secondary);
+      font-size: var(--body-size);
+      margin: 0 0 var(--space-md);
+    }
+    .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      background: var(--secondary-soft);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Masthead & Context Strip */
+    .masthead {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .context-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+    }
+    .context-stat {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .context-stat-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      font-weight: 600;
+    }
+    .context-stat-val {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      color: var(--on-surface);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Group Selector Bar */
+    .team-switcher-section {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .team-switcher-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .team-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .team-tab {
+      appearance: none;
+      text-align: left;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      min-height: 44px;
+      position: relative;
+      transition: background-color var(--dur-short) var(--ease-out),
+                  box-shadow var(--dur-short) var(--ease-out),
+                  transform var(--dur-micro) var(--ease-out);
+    }
+    .team-tab:hover {
+      background: var(--surface-container);
+      box-shadow: 0 2px 0 0 var(--outline);
+    }
+    .team-tab:active {
+      transform: translateY(1px);
+    }
+    .team-tab.is-active {
+      background: var(--primary);
+      color: var(--on-primary);
+      box-shadow: inset 0 -4px 0 0 var(--primary-container);
+    }
+    .team-tab-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      width: 100%;
+    }
+    .team-tab-code {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--secondary);
+    }
+    .team-tab.is-active .team-tab-code {
+      color: var(--primary-container);
+    }
+    .team-tab-pair {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      padding: 2px var(--space-xs);
+      border-radius: var(--badge-radius);
+      background: var(--surface-container);
+      color: var(--on-surface-variant);
+    }
+    .team-tab.is-active .team-tab-pair {
+      background: var(--secondary);
+      color: var(--on-primary);
+    }
+    .team-tab-name {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.25;
+    }
+    .team-tab-summary {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+      line-height: 1.4;
+    }
+    .team-tab.is-active .team-tab-summary {
+      color: var(--surface-container-high);
+    }
+
+    /* Flow Stepper Indicator */
+    .flow-breadcrumb {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      border: var(--card-border);
+    }
+    .flow-step-link {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--on-surface);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .flow-step-link:hover {
+      background: var(--surface-container-high);
+    }
+    .flow-sep {
+      color: var(--on-surface-variant);
+      font-family: var(--font-label);
+    }
+
+    /* Main Active Group Panel */
+    .group-workspace {
+      display: grid;
+      gap: var(--space-2xl);
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+    .stage-block {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    /* STAGE 1: Blueprint & Video Showcase */
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .blueprint-card {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .blueprint-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .blueprint-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .blueprint-work-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .blueprint-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+    }
+    .btn-secondary {
+      appearance: none;
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .btn-secondary:hover {
+      background: var(--surface-container);
+    }
+    .btn-secondary[aria-pressed="true"] {
+      background: var(--secondary);
+      color: var(--on-primary);
+      box-shadow: inset 0 -2px 0 0 var(--primary-container);
+    }
+
+    /* Blueprint Viewport with Static Embedded Source Images */
+    .blueprint-stage {
+      position: relative;
+      background: var(--surface-container);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      overflow: hidden;
+    }
+    .blueprint-figure {
+      display: none;
+      position: relative;
+      width: 100%;
+      margin: 0;
+    }
+    .blueprint-figure.is-active {
+      display: block;
+    }
+    .blueprint-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 580px;
+      object-fit: contain;
+      background: var(--surface-container);
+    }
+    .hotspot-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+    .blueprint-stage.nodes-hidden .hotspot-layer {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .hotspot-pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      appearance: none;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+    .hotspot-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      background: var(--primary);
+      color: var(--primary-container);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      box-shadow: var(--hotspot-shadow);
+      border: 1.5px solid var(--surface-container-low);
+      transition: transform var(--dur-micro) var(--ease-out),
+                  background-color var(--dur-micro) var(--ease-out);
+    }
+    .hotspot-pin:hover .hotspot-badge {
+      transform: scale(1.06);
+      background: var(--secondary);
+      color: var(--on-primary);
+    }
+    .hotspot-pin.is-selected .hotspot-badge {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      border-color: var(--outline);
+      transform: scale(1.1);
+    }
+
+    .blueprint-caption-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      padding-top: var(--space-xs);
+      border-top: var(--card-border);
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Quick Design-Point Strip below Blueprint */
+    .quick-node-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .quick-node-btn {
+      appearance: none;
+      background: var(--surface-container);
+      color: var(--on-surface);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      font-size: 0.875rem;
+      font-weight: 600;
+      min-height: 44px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .quick-node-btn:hover {
+      background: var(--surface-container-high);
+    }
+    .quick-node-btn.is-selected {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      box-shadow: inset 0 0 0 1.5px var(--outline);
+    }
+
+    /* Video & Oral Script Showcase Panel */
+    .video-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-top: var(--section-rule);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .video-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .video-file-badge {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      background: var(--secondary-soft);
+      color: var(--secondary);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+    }
+    /* Dual Mode Video Player: Inline Embed + External YouTube Link */
+    .video-player-group {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .video-embed-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--primary);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      overflow: hidden;
+    }
+    .video-embed-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+    .video-external-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  transform var(--dur-micro) var(--ease-out);
+    }
+    .video-external-link:hover {
+      background: #ffd038;
+    }
+    .video-external-link:active {
+      transform: translateY(1px);
+    }
+    .video-stage-preview {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .video-stage-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--primary-container);
+    }
+    .video-stage-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      margin: 0;
+      color: var(--on-primary);
+    }
+    .video-stage-desc {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--surface-container-high);
+    }
+    .video-beats {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .video-beat-btn {
+      appearance: none;
+      width: 100%;
+      text-align: left;
+      background: var(--surface-container);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      cursor: pointer;
+      display: grid;
+      gap: var(--space-xs);
+      min-height: 44px;
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .video-beat-btn:hover {
+      background: var(--surface-container-high);
+    }
+    .video-beat-btn.is-active {
+      background: var(--surface-container-low);
+      box-shadow: inset 4px 0 0 0 var(--secondary), 0 0 0 1px var(--outline);
+    }
+    .video-beat-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--on-surface);
+    }
+    .video-beat-tag {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--tertiary);
+    }
+    .video-quote-box {
+      background: var(--surface-container);
+      border-left: 3px solid var(--secondary);
+      padding: var(--space-md);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .video-quote-en {
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .video-quote-zh {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+    .video-quote-src {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+    }
+
+    /* STAGE 2: Design Philosophy & Table 3 */
+    .philosophy-banner {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-left: 4px solid var(--primary-container);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .slogan-quote {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .slogan-sub {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--tertiary);
+      background: var(--tertiary-soft);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+      display: inline-block;
+      width: fit-content;
+    }
+    .philosophy-body {
+      margin: 0;
+      max-width: 78ch;
+      color: var(--on-surface);
+    }
+    .culture-compare-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+    .culture-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+      align-content: start;
+    }
+    .culture-card-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+    }
+    .culture-country {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      margin: 0;
+    }
+    .culture-site {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+      font-weight: 600;
+    }
+    .gene-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .gene-tag {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+      background: var(--secondary-soft);
+      color: var(--secondary);
+    }
+    .gene-tag.is-partner {
+      background: var(--tertiary-soft);
+      color: var(--tertiary);
+    }
+    .culture-evidence {
+      margin: 0;
+      font-size: 0.9375rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* STAGE 3: Cross-Cultural Conflicts (Pain Points) */
+    .conflict-stack {
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .conflict-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-top: 3px solid var(--error);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .conflict-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .conflict-pill {
+      background: var(--conflict-soft);
+      color: var(--conflict-ink);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+    }
+    .conflict-axis-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .tension-diagram {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: stretch;
+      background: var(--surface-container);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+    }
+    .tension-pole {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+      align-content: start;
+    }
+    .tension-pole-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--secondary);
+    }
+    .tension-pole-title {
+      font-weight: 700;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .tension-pole-desc {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+    }
+    .tension-vs {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: var(--label-size);
+      color: var(--conflict-ink);
+      padding: var(--space-xs);
+    }
+    .conflict-logic {
+      margin: 0;
+      font-size: 0.9375rem;
+      color: var(--on-surface);
+    }
+
+    /* STAGE 4: Interactive Integration Values & Design Points */
+    .fusion-values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .fusion-pillar {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+      align-content: start;
+      transition: box-shadow var(--dur-short) var(--ease-out),
+                  background-color var(--dur-short) var(--ease-out);
+    }
+    .fusion-pillar.is-highlighted {
+      background: var(--resolve-soft);
+      box-shadow: inset 0 0 0 1.5px var(--data-3);
+    }
+    .fusion-pillar-badge {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--resolve-ink);
+      background: var(--resolve-soft);
+      padding: 2px var(--space-sm);
+      border-radius: var(--badge-radius);
+      width: fit-content;
+    }
+    .fusion-pillar.is-highlighted .fusion-pillar-badge {
+      background: var(--data-3);
+      color: var(--on-primary);
+    }
+    .fusion-pillar-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1rem;
+      margin: 0;
+      color: var(--on-surface);
+    }
+    .fusion-pillar-desc {
+      margin: 0;
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Interactive Design-Point Explorer */
+    .dp-explorer {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .dp-list {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .dp-trigger {
+      appearance: none;
+      width: 100%;
+      text-align: left;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      cursor: pointer;
+      display: grid;
+      gap: var(--space-xs);
+      min-height: 44px;
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .dp-trigger:hover {
+      background: var(--surface-container);
+    }
+    .dp-trigger.is-selected {
+      background: var(--primary);
+      color: var(--on-primary);
+      box-shadow: inset 4px 0 0 0 var(--primary-container);
+    }
+    .dp-trigger-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .dp-num {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--secondary);
+    }
+    .dp-trigger.is-selected .dp-num {
+      color: var(--primary-container);
+    }
+    .dp-value-chip {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      padding: 2px var(--space-xs);
+      border-radius: var(--badge-radius);
+      background: var(--resolve-soft);
+      color: var(--resolve-ink);
+    }
+    .dp-trigger.is-selected .dp-value-chip {
+      background: var(--secondary);
+      color: var(--on-primary);
+    }
+    .dp-trigger-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      line-height: 1.35;
+    }
+
+    .dp-detail-panel {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-top: 3px solid var(--data-3);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+      animation: fadePanel var(--dur-short) var(--ease-out);
+    }
+    @keyframes fadePanel {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .dp-detail-head {
+      display: grid;
+      gap: var(--space-xs);
+      border-bottom: var(--card-border);
+      padding-bottom: var(--space-md);
+    }
+    .dp-detail-kicker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      align-items: center;
+    }
+    .dp-detail-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--headline-size);
+      margin: 0;
+      color: var(--on-surface);
+    }
+    .dp-detail-sub {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--secondary);
+    }
+    .dp-block {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .dp-block-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--secondary);
+    }
+    .dp-resolve-banner {
+      background: var(--resolve-soft);
+      border-left: 3px solid var(--data-3);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+      font-size: 0.9375rem;
+      color: var(--resolve-ink);
+      font-weight: 600;
+    }
+    .dp-evidence-box {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-md);
+      border-radius: 0 0 var(--rounded) var(--rounded);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .dp-evidence-quote {
+      font-family: var(--font-headline);
+      font-size: 0.95rem;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .dp-mechanism-text {
+      margin: 0;
+    }
+
+    /* Verification Table */
+    .table-wrap {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow-x: auto;
+    }
+    .briefing-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .briefing-table th {
+      text-align: left;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--on-surface);
+      background: var(--surface-container);
+      border-bottom: var(--section-rule);
+      padding: var(--space-sm) var(--space-md);
+      white-space: nowrap;
+    }
+    .briefing-table td {
+      padding: var(--space-md);
+      border-bottom: var(--card-border);
+      vertical-align: top;
+      color: var(--on-surface);
+    }
+    .briefing-table tr:last-child td {
+      border-bottom: none;
+    }
+    .briefing-table tr.is-active-row {
+      background: var(--secondary-soft);
+    }
+
+    /* Cross-Team Overview Matrix Footer */
+    .matrix-section {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .sources-footer {
+      border-top: var(--card-border);
+      padding-top: var(--space-md);
+      font-size: 0.85rem;
+      color: var(--on-surface-variant);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+
+    /* Container & Responsive Breakpoints */
+    @media (max-width: 980px) {
+      .team-tabs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .showcase-grid {
+        grid-template-columns: 1fr;
+      }
+      .fusion-values-grid {
+        grid-template-columns: 1fr;
+      }
+      .dp-explorer {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .team-tabs {
+        grid-template-columns: 1fr;
+      }
+      .culture-compare-grid {
+        grid-template-columns: 1fr;
+      }
+      .tension-diagram {
+        grid-template-columns: 1fr;
+      }
+      .tension-vs {
+        flex-direction: row;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+    <!-- MASTHEAD -->
+    <header class="masthead">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill is-ascii">URBAN DOSSIER · 2026</span>
+          <span class="dossier-meta">世界薈萃廣場在臺灣｜跨文化公共空間轉譯計畫</span>
+        </div>
+        <span class="dossier-meta">表三文化價值 × 表四跨文化思辨 × 共生廣場設計藍圖</span>
+      </div>
+      <div>
+        <h1 class="hero-title">世界薈萃廣場在臺灣：從老舊水泥廣場到跨文化共生廣場</h1>
+        <p class="hero-standfirst">
+          回應都市老舊水泥廣場缺乏「互動體驗設計」的課題，四組設計團隊以臺南河樂廣場為基底，分別對照芬蘭、義大利與澳洲公共空間基因，提出四套化解文化價值痛點的互動空間藍圖。
+        </p>
+        <p class="hero-context">
+          點選下方任一組別，將依循「藍圖與發表影片實錄 → 總體設計理念 → 跨文化價值矛盾剖析 → 互動式融合價值設計點解碼」標準動線展開完整策展檢核。
+        </p>
+      </div>
+      <div class="context-strip" aria-label="計畫核心指標">
+        <div class="context-stat">
+          <span class="context-stat-label">基地原點（台灣對照案例）</span>
+          <span class="context-stat-val">臺南河樂廣場 The Spring</span>
+        </div>
+        <div class="context-stat">
+          <span class="context-stat-label">國際跨文化參照座標</span>
+          <span class="context-stat-val">芬蘭 × 義大利 × 澳洲</span>
+        </div>
+        <div class="context-stat">
+          <span class="context-stat-label">核心空間轉型定位</span>
+          <span class="context-stat-val">15 項互動設計點 · 共生廣場</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- GROUP SELECTOR -->
+    <section class="team-switcher-section" aria-label="選擇設計組別">
+      <div class="team-switcher-label">
+        <span class="index-num">INDEX</span>
+        <span>切換探索四大跨文化設計組別（點選即切換完整展示動線）</span>
+      </div>
+      <div class="team-tabs" role="tablist" aria-label="四大組別作品">
+        <button type="button" class="team-tab is-active" id="tab-station" role="tab" aria-selected="true" onclick="selectTeam('station')">
+          <div class="team-tab-top">
+            <span class="team-tab-code">01｜車站組</span>
+            <span class="team-tab-pair">台 × 芬</span>
+          </div>
+          <span class="team-tab-name">下沉式採光共生廣場</span>
+          <span class="team-tab-summary">調和歷史保存與空間自由，結合地下博物館、採光天井與手轉風車設施。</span>
+        </button>
+
+        <button type="button" class="team-tab" id="tab-spatial" role="tab" aria-selected="false" onclick="selectTeam('spatial')">
+          <div class="team-tab-top">
+            <span class="team-tab-code">02｜空間組</span>
+            <span class="team-tab-pair">台 × 義</span>
+          </div>
+          <span class="team-tab-name">Riverside · Urban Square</span>
+          <span class="team-tab-summary">揉合錫耶納扇形幾何古典秩序與臺南親水開放生態。</span>
+        </button>
+
+        <button type="button" class="team-tab" id="tab-currency" role="tab" aria-selected="false" onclick="selectTeam('currency')">
+          <div class="team-tab-top">
+            <span class="team-tab-code">03｜貨幣組</span>
+            <span class="team-tab-pair">台 × 澳</span>
+          </div>
+          <span class="team-tab-name">The Spring Plaza 融合設計</span>
+          <span class="team-tab-summary">平衡商業繁榮與自然寧靜，整合互動 LED 螢幕、綠牆、市集與舞台。</span>
+        </button>
+
+        <button type="button" class="team-tab" id="tab-fashion" role="tab" aria-selected="false" onclick="selectTeam('fashion')">
+          <div class="team-tab-top">
+            <span class="team-tab-code">04｜服裝組</span>
+            <span class="team-tab-pair">台 × 澳</span>
+          </div>
+          <span class="team-tab-name">Cultural Coexistence Plaza</span>
+          <span class="team-tab-summary">連結歷史根基與社群凝聚，設有遺產保護區、共生廣場平台與數位互動。</span>
+        </button>
+      </div>
+
+      <nav class="flow-breadcrumb" aria-label="組別導覽動線">
+        <a href="#stage-1" class="flow-step-link"><span class="index-num">01</span> 藍圖作品與影片實錄</a>
+        <span class="flow-sep" aria-hidden="true">/</span>
+        <a href="#stage-2" class="flow-step-link"><span class="index-num">02</span> 總體設計理念</a>
+        <span class="flow-sep" aria-hidden="true">/</span>
+        <a href="#stage-3" class="flow-step-link"><span class="index-num">03</span> 跨文化價值矛盾剖析</a>
+        <span class="flow-sep" aria-hidden="true">/</span>
+        <a href="#stage-4" class="flow-step-link"><span class="index-num">04</span> 互動融合價值設計點</a>
+      </nav>
+    </section>
+
+    <!-- MAIN ACTIVE TEAM WORKSPACE -->
+    <main class="group-workspace" id="group-workspace">
+      <!-- STAGE 1: PRIORITY BLUEPRINT & VIDEO SHOWCASE -->
+      <section id="stage-1" class="stage-block" aria-labelledby="stage-1-heading">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="dossier-pill">STAGE 01 · 優先呈現</span>
+            <span class="dossier-meta" id="s1-meta">藍圖設計圖檔 × 發表影片敘事 × 互動節點標記</span>
+          </div>
+          <span class="dossier-meta" id="s1-pair-badge">臺南河樂廣場 × 芬蘭玻璃宮廣場</span>
+        </div>
+        <h2 id="stage-1-heading" class="section-heading">學生藍圖作品與發表影片實錄</h2>
+        <p class="section-standfirst" id="s1-standfirst">
+          直接檢視各組空間設計藍圖，並可點選藍圖上的編號節點，即時跳轉對應至下方「第四步：跨文化融合價值設計點」深度解析。
+        </p>
+
+        <div class="showcase-grid">
+          <!-- Blueprint Frame (Static HTML <img> tags for all 4 [SOURCE_IMAGE_X]) -->
+          <div class="figure-card blueprint-card">
+            <div class="blueprint-toolbar">
+              <div class="blueprint-title-group">
+                <h3 class="blueprint-work-title" id="blueprint-work-title">車站組｜下沉式採光共生廣場渲染藍圖</h3>
+                <span class="blueprint-meta" id="blueprint-work-meta">來源圖檔：車站組空間設計概念圖（800 × 436 px）</span>
+              </div>
+              <button type="button" class="btn-secondary" id="toggle-nodes-btn" aria-pressed="true" onclick="toggleHotspots()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M12 2v3m0 14v3M2 12h3m14 0h3"></path>
+                </svg>
+                <span id="toggle-nodes-text">隱藏藍圖節點標記</span>
+              </button>
+            </div>
+
+            <div class="blueprint-stage" id="blueprint-stage">
+              <!-- Station Group: [SOURCE_IMAGE_4] -->
+              <figure class="blueprint-figure is-active" id="fig-station">
+                <img src="車站組.jpg" width="800" height="436" alt="車站組台芬跨文化下沉式採光廣場渲染藍圖，包含地面混凝土圓環天井、地下歷史紅磚遺構、彩色手轉風車與中央親水噴泉區" class="blueprint-img">
+                <div class="hotspot-layer" id="hotspots-station"></div>
+              </figure>
+
+              <!-- Spatial Group: [SOURCE_IMAGE_2] -->
+              <figure class="blueprint-figure" id="fig-spatial">
+                <img src="空間組.png" width="598" height="600" alt="空間組台義跨文化幾何親水規劃圖 Riverside Urban Square Park，包含平面配置、機能分區、扇形排水剖面圖與橫剖面圖" class="blueprint-img">
+                <div class="hotspot-layer" id="hotspots-spatial"></div>
+              </figure>
+
+              <!-- Currency Group: [SOURCE_IMAGE_3] -->
+              <figure class="blueprint-figure" id="fig-currency">
+                <img src="貨幣組.png" width="800" height="600" alt="貨幣組台澳跨文化 The Spring Plaza Cultural Integration Concept 融合設計圖，結合戶外 LED 螢幕、垂直生態綠牆、文化展覽市集與戶外現場音樂舞台" class="blueprint-img">
+                <div class="hotspot-layer" id="hotspots-currency"></div>
+              </figure>
+
+              <!-- Fashion Group: [SOURCE_IMAGE_1] -->
+              <figure class="blueprint-figure" id="fig-fashion">
+                <img src="服裝組.png" width="800" height="600" alt="服裝組台澳跨文化 Cultural Coexistence Plaza 概念設計圖，劃分歷史遺構保存區、下沉式社區聚會平台與創新數位互動區" class="blueprint-img">
+                <div class="hotspot-layer" id="hotspots-fashion"></div>
+              </figure>
+            </div>
+
+            <div class="quick-node-strip" id="quick-node-strip" aria-label="設計點快速切換"></div>
+
+            <div class="blueprint-caption-bar">
+              <span id="blueprint-caption">點選上方「01–04」藍圖節點，即可聯動查看該空間設施對應的跨文化融合價值。</span>
+              <a href="#stage-4" class="flow-step-link">前往設計點深度解碼 ↓</a>
+            </div>
+          </div>
+
+          <!-- Video & Oral Presentation Showcase -->
+          <aside class="video-card" aria-label="學生發表影片與口頭實錄">
+            <div class="video-header">
+              <span class="index-num">VIDEO &amp; SCRIPT</span>
+              <span class="video-file-badge" id="video-filename">video_1.mp4｜課堂發表實錄</span>
+            </div>
+
+            <!-- Inline YouTube Player + Direct YouTube Link -->
+            <div class="video-player-group">
+              <div class="video-embed-wrap">
+                <iframe
+                  id="video-embed-frame"
+                  src="https://www.youtube.com/embed/YcThs5Qyy8E"
+                  title="車站組 發表與空間導覽實錄影片"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen>
+                </iframe>
+              </div>
+              <a id="video-watch-link" class="video-external-link" href="https://www.youtube.com/watch?v=YcThs5Qyy8E" target="_blank" rel="noopener noreferrer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                <span id="video-external-text">在 YouTube 開啟車站組原始影片 ↗</span>
+              </a>
+            </div>
+
+            <div class="video-stage-preview">
+              <div class="video-stage-top">
+                <span id="video-format-label">空間導覽發表影片</span>
+                <span id="video-active-scene-idx">SCENE 01 / 03</span>
+              </div>
+              <h3 class="video-stage-title" id="video-scene-title">鏡頭導覽：連結過去與現在的立體廣場</h3>
+              <p class="video-stage-desc" id="video-scene-desc">
+                從上方混凝土圓環天井俯視進入下沉式廣場，視線依序掃過地下歷史紅磚遺構、手動旋轉風車與中央親水噴泉。
+              </p>
+            </div>
+
+            <div class="video-beats" id="video-beats" role="list" aria-label="影片導覽片段"></div>
+
+            <div class="video-quote-box">
+              <p class="video-quote-en" id="video-quote-en"></p>
+              <p class="video-quote-zh" id="video-quote-zh"></p>
+              <span class="video-quote-src" id="video-quote-src"></span>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- STAGE 2: OVERALL DESIGN PHILOSOPHY & TABLE 3 -->
+      <section id="stage-2" class="stage-block" aria-labelledby="stage-2-heading">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="dossier-pill">STAGE 02 · 總體設計理念</span>
+            <span class="dossier-meta">表三文化價值基因萃取 × 核心設計主張</span>
+          </div>
+          <span class="dossier-meta" id="s2-source-tag">來源：表三文化價值表</span>
+        </div>
+        <h2 id="stage-2-heading" class="section-heading">學生作品總體設計理念與文化基因萃取</h2>
+        <p class="section-standfirst" id="s2-standfirst">
+          從空間材質、尺度與使用儀式出發，先行提煉台灣與國際案例各自承載的核心文化價值。
+        </p>
+
+        <div class="philosophy-banner">
+          <span class="slogan-sub" id="philosophy-formula">CORE SLOGAN</span>
+          <p class="slogan-quote" id="philosophy-slogan"></p>
+          <p class="philosophy-body" id="philosophy-summary"></p>
+        </div>
+
+        <div class="culture-compare-grid" id="culture-compare-grid"></div>
+      </section>
+
+      <!-- STAGE 3: CROSS-CULTURAL CONFLICTS (PAIN POINTS) -->
+      <section id="stage-3" class="stage-block" aria-labelledby="stage-3-heading">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="dossier-pill">STAGE 03 · 跨文化價值矛盾</span>
+            <span class="dossier-meta">表四「異」與「跨文化價值矛盾覺察」痛點剖析</span>
+          </div>
+          <span class="dossier-meta">雙向文化張力解析</span>
+        </div>
+        <h2 id="stage-3-heading" class="section-heading">兩國文化碰撞時的痛點剖析</h2>
+        <p class="section-standfirst" id="s3-standfirst">
+          當台灣與國際案例的空間基因交會時，各自極端化的傾向如何形成設計上的矛盾與使用門檻。
+        </p>
+
+        <div class="conflict-stack" id="conflict-stack"></div>
+      </section>
+
+      <!-- STAGE 4: INTERACTIVE INTEGRATION VALUES & DESIGN POINTS -->
+      <section id="stage-4" class="stage-block" aria-labelledby="stage-4-heading">
+        <div class="dossier-bar">
+          <div class="dossier-bar-left">
+            <span class="dossier-pill">STAGE 04 · 互動融合價值解法</span>
+            <span class="dossier-meta">點選設計點節點，動態展開跨文化價值對應與原始佐證</span>
+          </div>
+          <span class="dossier-meta" id="s4-active-indicator">已選取：設計點 01</span>
+        </div>
+        <h2 id="stage-4-heading" class="section-heading">跨文化融合價值與空間設計點互動解碼</h2>
+        <p class="section-standfirst">
+          下方三大「跨文化融合價值」源自表四融合探究；點選任一實體「設計點」卡片（或上方藍圖標記），即可查看該設計如何精準化解兩國痛點。
+        </p>
+
+        <!-- Three Integration Value Pillars -->
+        <div class="fusion-values-grid" id="fusion-values-grid"></div>
+
+        <!-- Interactive Design Point Explorer -->
+        <div class="dp-explorer">
+          <div class="dp-list" id="dp-list" role="listbox" aria-label="設計點列表"></div>
+          <article class="dp-detail-panel" id="dp-detail-panel" aria-live="polite"></article>
+        </div>
+
+        <!-- Full Summary Reference Table for Active Group -->
+        <div class="table-wrap">
+          <table class="briefing-table" aria-label="設計點與跨文化融合價值總對照表">
+            <thead>
+              <tr>
+                <th>設計點項目</th>
+                <th>對應跨文化融合價值</th>
+                <th>化解之價值矛盾（痛點）</th>
+                <th>作品與報告原始佐證</th>
+              </tr>
+            </thead>
+            <tbody id="verification-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- CROSS-TEAM MATRIX OVERVIEW -->
+    <section class="matrix-section" aria-labelledby="matrix-heading">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">OVERVIEW · 四組對照總覽</span>
+          <span class="dossier-meta">世界薈萃廣場在臺灣｜跨組痛點與共生廣場轉譯光譜</span>
+        </div>
+      </div>
+      <h2 id="matrix-heading" class="section-heading">四大組別跨文化價值矛盾與設計解方總覽</h2>
+      <div class="table-wrap">
+        <table class="briefing-table">
+          <thead>
+            <tr>
+              <th>組別與跨文化對象</th>
+              <th>核心文化痛點（表四）</th>
+              <th>核心融合價值主張</th>
+              <th>關鍵互動共生廣場設施</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>01｜車站組</strong>（台 × 芬）</td>
+              <td>保留過去（忠誠歷史） vs. 服務當下（開放與行為解放）</td>
+              <td>突破拆舊建新、無界藝術平民化、生態心靈庇護</td>
+              <td>地下歷史博物館、玻璃採光穹頂、圓環天井、手轉發光風車、親水噴泉</td>
+            </tr>
+            <tr>
+              <td><strong>02｜空間組</strong>（台 × 義）</td>
+              <td>變遷包容 vs. 固守排他；自由休閒 vs. 秩序化壓抑</td>
+              <td>向心凝聚與開放共生廣場共融、歷史日常對話、順應地形水景</td>
+              <td>紅磚扇形中央廣場、外環賽馬道、親水活動區、扇形雨水回收系統、微風綠帶</td>
+            </tr>
+            <tr>
+              <td><strong>03｜貨幣組</strong>（台 × 澳）</td>
+              <td>自然靜謐反思（Tranquility） vs. 商業消費娛樂（Commercialism）</td>
+              <td>人文科技活化歷史、動靜分時自然商業共生、跨族群凝聚</td>
+              <td>北橋式戶外互動 LED 螢幕、垂直生態綠牆、文化節慶市集、現場音樂舞台</td>
+            </tr>
+            <tr>
+              <td><strong>04｜服裝組</strong>（台 × 澳）</td>
+              <td>歷史傳承（pass down） vs. 當代革新與社群凝聚（Innovative / Cohesive）</td>
+              <td>古今空間對話、澳洲社群精神與台灣文化共融、無門檻連結</td>
+              <td>歷史遺構保存區、北橋式互動數位螢幕、河樂親水池、下沉式社區聚會平台</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <footer class="sources-footer">
+        <span>資料來源：1151107 / 1151114《國際休閒空間》課程簡報（表一～表四）、四組學生作品設計藍圖、發表展示影片與課堂英文口頭發表轉錄。</span>
+        <span>世界薈萃廣場在臺灣｜互動策展檢核檔案</span>
+      </footer>
+    </section>
+  </div>
+
+  <script>
+    const TEAMS_DATA = {
+      station: {
+        id: `station`,
+        code: `01｜車站組`,
+        shortLabel: `車站組`,
+        pairLabel: `臺南河樂廣場 × 芬蘭玻璃宮廣場`,
+        blueprintTitle: `車站組｜下沉式採光共生廣場渲染藍圖`,
+        blueprintMeta: `來源圖檔：車站組理想休閒廣場建築概念設計圖（800 × 436 px）`,
+        blueprintCaption: `透過「地上開放自由、地下歷史保存」立體分層，將歷史紅磚牆、採光天井與手轉風車整合進親水廣場。`,
+        videoFile: `video_1.mp4｜課堂英文發表錄音`,
+        youtubeId: `YcThs5Qyy8E`,
+        videoFormat: `建築空間導覽發表影片`,
+        videoScenes: [
+          {
+            title: `鏡頭 01｜圓環天井引光與開放尺度`,
+            tag: `00:00 – 00:20`,
+            desc: `展示巨型清水模圓環天井如何讓陽光穿透灑落，建立全區無圍牆、免費開放予所有年齡與背景市民的平等空間。`,
+            en: `"Our design connects the past and the present... And the open space above represents freedom. It also lets sunlight shine through."`,
+            zh: `「我們的設計連結了過去與現在……上方的開放空間象徵自由，也讓陽光灑落其中。」`,
+            src: `來源：車站組 video_1.mp4 及英文講稿截圖`
+          },
+          {
+            title: `鏡頭 02｜地下歷史博物館與玻璃穹頂`,
+            tag: `00:21 – 00:42`,
+            desc: `視角切入左側下沉層，呈現玻璃幕牆包覆的歷史紅磚遺構與解說牌，並藉由右側幾何玻璃穹頂導入自然光。`,
+            en: `"Underground, there is a history museum to help people learn about and remember the past... A rich collection of historical artifacts lets visitors learn about the past stories of this place."`,
+            zh: `「在地下層設有歷史博物館，幫助人們認識並記住過去……豐富的歷史文物收藏讓訪客了解此地的過往故事。」`,
+            src: `來源：車站組英文講稿截圖及課堂錄音轉錄`
+          },
+          {
+            title: `鏡頭 03｜手轉發光風車與親水綠植共生`,
+            tag: `00:43 – 01:05`,
+            desc: `特寫孩童伸手轉動歷史牆前的彩色幾何風車折射光影，接著串連階梯綠植與中央疊石親水噴泉。`,
+            en: `"The windmills represent art and culture. Visitors can turn them to create beautiful lights... First, we add plants to bring nature into the city... We also have water areas where people can play and spend time together."`,
+            zh: `「風車代表藝術與文化，訪客能親自轉動並創造美麗光影……我們加入植栽將自然帶入城市，也保留讓大家共遊凝聚的親水區。」`,
+            src: `來源：車站組發表錄音與英文講稿`
+          }
+        ],
+        philosophyFormula: `CORE PHILOSOPHY · 古今立體共生 × 無界平等共享`,
+        philosophySlogan: `“Our design connects the past and the present. Most importantly, this space is free for everyone.”`,
+        philosophySummary: `車站組比較臺南河樂廣場對舊中國城混凝土遺構的「忠誠守護」，以及芬蘭玻璃宮廣場打破藝術殿堂界線的「空間開放與行為解放」，拒絕傳統「拆舊建新（Demolish and rebuild）」思維，以垂直分層把歷史沉澱於地下、把陽光與自由還給地面市民。`,
+        sourceTag: `來源：1151114 國際休閒空間(車站組).pptx 表三、表四`,
+        cultureComparison: [
+          {
+            country: `臺灣｜臺南河樂廣場`,
+            site: `Taiwan · The Spring`,
+            isPartner: false,
+            genes: [`忠誠 Loyalty`, `守護 Safeguard`, `共生 Coexistence`, `庇護 Shelter`, `凝聚 Bonding`, `傳承 Heritage`],
+            evidence: `中國城商場拆除後保留原有混凝土結構展現「忠誠」，白色抿石子防滑設計提供「守護」；迴廊與陸橋遮陽構成「庇護」，植栽與都市「共生」，親子玩水拉近距離促成「凝聚」與「傳承」。`
+          },
+          {
+            country: `芬蘭｜玻璃宮廣場`,
+            site: `Finland · Lasipalatsi Square`,
+            isPartner: true,
+            genes: [`開放 Equality`, `真誠 Material Honesty`, `藝術普及 Democratized Art`, `心靈庇護 Psychological Refuge`, `包容性 Inclusive`, `解放 Emancipation`],
+            evidence: `以純粹混凝土與玻璃展現材質「真誠」，強調平等共享、打破室內外結界的「開放」與「藝術普及」，賦予市民依自我意志探索空間的「行為解放」，並提供都市人修復感知的「心靈庇護」。`
+          }
+        ],
+        conflicts: [
+          {
+            badge: `核心痛點｜表四跨文化價值矛盾覺察`,
+            axis: `「保留過去（臺灣：忠誠 Loyalty） vs. 服務當下（芬蘭：開放 Equality）」`,
+            leftLabel: `臺灣側重：忠誠守護與保留過去`,
+            leftTitle: `歷史記憶延續 vs. 靜態距離感`,
+            leftDesc: `河樂廣場忠誠保留舊商場遺構與土地軌跡；但若過度執著於「保留過去」的歷史原貌，空間易趨於靜態懷舊，甚至形成心理或物理參觀門檻，削弱對當代市民多元休閒需求的即時回應。`,
+            rightLabel: `芬蘭側重：開放平權與服務當下`,
+            rightTitle: `行為解放自由 vs. 忽略既有脈絡`,
+            rightDesc: `玻璃宮廣場強調藝術平民化與依自我意志探索空間的自由權；然而若一味追求當代的開放機能與即時使用，則可能稀釋甚至覆蓋基地原有的歷史建築紋理。`,
+            logic: `歸納邏輯：表四「異」欄明確對比「臺灣：忠誠 (Loyalty)；芬蘭：開放 (equality)」，進而於「跨文化價值矛盾覺察」欄將此張力精準提煉為「保留過去 vs. 服務當下」。`
+          }
+        ],
+        integrationValues: [
+          {
+            id: `v1`,
+            badge: `融合價值一`,
+            title: `突破拆舊建新的古今立體共生`,
+            desc: `打破「拆舊建新（Demolish and rebuild）」慣性，將過去遺構與現代採光建設以立體分層並存，讓歷史持續活在當下。`
+          },
+          {
+            id: `v2`,
+            badge: `融合價值二`,
+            title: `無界開放與藝術平民化的民主共享`,
+            desc: `消除室內展覽與戶外街道、歷史文物與日常遊戲之間的結界，讓所有年齡與背景市民免費、無壓力親近藝術。`
+          },
+          {
+            id: `v3`,
+            badge: `融合價值三`,
+            title: `都市生態庇護與跨世代親水凝聚`,
+            desc: `整合臺灣植栽共生、遮陽庇護與親子戲水，結合芬蘭心靈庇護概念，打造能修復都市壓力的療癒場域。`
+          }
+        ],
+        designPoints: [
+          {
+            num: `01`,
+            coords: { x: 22, y: 60 },
+            shortName: `地下歷史博物館 & 採光穹頂`,
+            title: `地下歷史遺構保存牆面、地下歷史博物館與玻璃採光穹頂`,
+            subtitle: `Underground History Museum & Glass Dome Skylight`,
+            valueIds: [`v1`],
+            valueLabels: [`融合價值一：突破拆舊建新的古今立體共生`],
+            conflictSolved: `化解臺灣「保留過去（忠誠守護歷史遺構）」與芬蘭「服務當下（打破地面與地下展覽結界）」的空間排擠衝突。`,
+            mechanism: `不將舊建築夷為平地，也不讓古蹟佔據地面妨礙日常活動，而採「垂直立體分層」：左側下沉層以通透玻璃幕牆包覆斑駁歷史紅磚與解說牌，規劃為地下歷史博物館；右側借鑒芬蘭 Amos Rex 圓形天窗，設置幾何玻璃採光穹頂將自然光引導至地下，使地上行走的市民與地下歷史遺構產生視覺對話。`,
+            evidenceQuote: `“Our design connects the past and the present... Underground, there is a history museum to help people learn about and remember the past.”`,
+            evidenceSource: `車站組設計概念圖左側下沉層＆右側幾何穹頂；video_1.mp4 英文講稿；表四「突破了傳統拆舊建新思維」`
+          },
+          {
+            num: `02`,
+            coords: { x: 50, y: 20 },
+            shortName: `圓環天井 & 無圍牆動線`,
+            title: `頂部巨型混凝土圓環天井與無圍牆開放動線`,
+            subtitle: `Open Circular Roof Ring & Barrier-Free Open Space`,
+            valueIds: [`v2`, `v3`],
+            valueLabels: [`融合價值二：無界開放與藝術平民化`, `融合價值三：都市生態庇護`],
+            conflictSolved: `回應臺灣「歷史場域守護」與芬蘭「開放（equality）與行為解放（Behavioral Emancipation）」之間的權限落差。`,
+            mechanism: `借鑒芬蘭玻璃宮「混凝土象徵堅固簡潔、玻璃與開孔象徵開放連結」的語彙，於廣場上方設計巨型清水模圓環屋頂並開出寬闊圓形天井，讓陽光灑落廣場、打破室內外邊界；全區不設收費閘門或隔離圍欄，賦予市民自由散步、席地而坐與上下探索的平權體驗。`,
+            evidenceQuote: `“And the open space above represents freedom. It also lets sunlight shine through... Most importantly, this space is free for everyone. No matter their age or background, everyone is welcome.”`,
+            evidenceSource: `車站組空間設計概念圖上層環形廊道與弧形石階；video_1.mp4 英文講稿截圖`
+          },
+          {
+            num: `03`,
+            coords: { x: 33, y: 47 },
+            shortName: `手轉發光風車 & 浮雕互動牆`,
+            title: `緊貼歷史牆面的可手動旋轉發光風車與浮雕互動裝置`,
+            subtitle: `Interactive Windmills & Relief Wall`,
+            valueIds: [`v2`, `v1`],
+            valueLabels: [`融合價值二：藝術平民化的民主共享`, `融合價值一：古今立體共生`],
+            conflictSolved: `消除臺灣「歷史遺跡莊重不可觸碰的距離感」，注入芬蘭「藝術普及（democratized cultural value）無壓力參與」。`,
+            mechanism: `在左側歷史紅磚玻璃幕牆正前方不設冰冷禁止紅線，而是緊貼歷史牆面配置彩色幾何「手動旋轉風車（Interactive Pinwheels）」與浮雕觸摸牆。孩童與遊客伸手轉動葉片時，風車在陽光下折射光影並象徵風力與能源，以遊戲化、多感官互動消弭人與歷史、人與藝術的距離。`,
+            evidenceQuote: `“The windmills represent art and culture. Visitors can turn them to create beautiful lights.” / “Visitors turn them by hand to interact with them, showing that there is no distance between people and art.”`,
+            evidenceSource: `車站組概念圖左側彩色風車裝置；video_1.mp4 講稿與課堂發表錄音轉錄`
+          },
+          {
+            num: `04`,
+            coords: { x: 64, y: 72 },
+            shortName: `中央親水噴泉 & 都市綠植`,
+            title: `河樂廣場式中央親水噴泉區與多層次都市綠植`,
+            subtitle: `Central Water Play Area & Urban Greenery`,
+            valueIds: [`v3`],
+            valueLabels: [`融合價值三：都市生態庇護與跨世代親水凝聚`],
+            conflictSolved: `結合臺灣「自然共生與親子親水凝聚（Bonding）」與芬蘭「心靈庇護（Psychological Refuge）與現代都市減壓」。`,
+            mechanism: `為讓「服務當下」回應都市人的身心壓力，下沉階梯兩側嵌入多層次綠意灌木，中央淺水池設置疊石雕塑、地湧噴泉與發光圓形踏石，讓長輩與孩童在淺水區戲水同樂、於遮陽迴廊沉思乘涼，實現人、自然與歷史在當代都市中的和諧共生。`,
+            evidenceQuote: `“First, we add plants to bring nature into the city... We also have water areas where people can play and spend time together. This helps bring people closer.”`,
+            evidenceSource: `車站組概念圖中央親水池與階梯綠帶；video_1.mp4 英文講稿截圖`
+          }
+        ]
+      },
+
+      spatial: {
+        id: `spatial`,
+        code: `02｜空間組`,
+        shortLabel: `空間組`,
+        pairLabel: `臺南河樂廣場 × 義大利西恩納田野廣場`,
+        blueprintTitle: `空間組｜《Riverside · Urban Square Park》幾何親水規劃圖`,
+        blueprintMeta: `來源圖檔：空間組台義融合設計平面、機能分區與扇形排水剖面圖（598 × 600 px）`,
+        blueprintCaption: `整合 Site Plan 平面配置、Functional Zoning 機能分區、扇形排水坡度剖面圖與橫剖面圖。`,
+        videoFile: `video_1.mov｜60 秒空拍視角展示影片`,
+        youtubeId: `kFiYc_Acbxw`,
+        videoFormat: `3D 空拍動畫 × AI 指令與雙語發表`,
+        videoScenes: [
+          {
+            title: `鏡頭 01｜西恩納紅磚扇形廣場與賽馬跑道`,
+            tag: `00:00 – 00:22`,
+            desc: `空拍俯瞰赭紅色扇形鋪面與外環賽馬跑道，呈現義大利古典向心力如何轉化為日常展覽與表演舞台。`,
+            en: `"We adopted the red brick concept from Siena to create our Central Plaza, giving the space a historical and welcoming atmosphere. The plaza is designed for events, exhibitions, and performances."`,
+            zh: `「我們採用西恩納的紅磚概念打造中央廣場，賦予空間歷史感與親切氛圍，並規劃為舉辦活動、展覽與演出的核心。」`,
+            src: `來源：空間組 Part 1 英文講稿截圖及 video_1.mov 空拍畫面`
+          },
+          {
+            title: `鏡頭 02｜河樂親水活動區與微風綠帶`,
+            tag: `00:23 – 00:44`,
+            desc: `鏡頭順著直線無障礙軸線推進至南側層次親水池與河岸水道，並環繞外圍步行與自行車綠帶。`,
+            en: `"Second, there is a large water plaza in the center. People can play in the water and relax... We also incorporated water features inspired by Taiwan's landscape."`,
+            zh: `「其次，中央設有大型親水廣場供民眾戲水放鬆……我們也融入源自臺灣地景的水景設計，營造愜意河岸環境。」`,
+            src: `來源：空間組 Part 2 英文講稿截圖與設計特色講稿`
+          },
+          {
+            title: `鏡頭 03｜扇形坡地雨水回收生態循環`,
+            tag: `00:45 – 01:00`,
+            desc: `解析西恩納傳統九人議會扇形緩坡如何轉譯為現代永續雨水集水灌溉系統，並說明 AI 生成關鍵字構想。`,
+            en: `"In addition, we designed a fan-shaped drainage system to collect rainwater and support landscape irrigation."`,
+            zh: `「此外，我們設計了扇形排水系統來收集雨水，並支援整體景觀綠帶灌溉。」`,
+            src: `來源：空間組 Part 2 英文講稿截圖、AI 指令講稿與課堂錄音`
+          }
+        ],
+        philosophyFormula: `CORE PHILOSOPHY · ONE PLAZA · TWO CITIES · A SHARED FUTURE`,
+        philosophySlogan: `“The Urban Plaza of Seaside City × The Riverfront Landscape of Green Hills and Rivers”`,
+        philosophySummary: `空間組對比臺南河樂廣場「擁抱變遷的再造包容」與義大利西恩納田野廣場「對抗時間的固守與秩序」，保留西恩納赭紅磚扇形幾何的凝聚力，抽離其封閉排他門檻，將其轉化為結合親水綠帶與生態排水的開放式「共生廣場」。`,
+        sourceTag: `來源：1151114 國際休閒空間(空間組).pptx 表三、表四`,
+        cultureComparison: [
+          {
+            country: `臺灣｜臺南河樂廣場`,
+            site: `Taiwan · The Spring`,
+            isPartner: false,
+            genes: [`重生 The Spring`, `對話 Dialogue`, `延續 Continuation`, `共享 Sharing`, `共融 Inclusion`, `活化 Activate`],
+            evidence: `老舊水泥重獲新生並於舊石材增添新石子讓時空無聲「對話」；透過開放性建立人際「共享」，讓不同世代與自然水域「共融」，結合藝文活動「活化」廢棄商場歷史。`
+          },
+          {
+            country: `義大利｜西恩納田野廣場`,
+            site: `Italy · Piazza del Campo`,
+            isPartner: true,
+            genes: [`樸實 Modesty`, `民主 Democracy`, `順應 Adaptation`, `同心 Unity`, `榮耀 Glory`, `認同 Agree`],
+            evidence: `紅磚象徵市民「樸實」，九條石灰華代表去貴族化的「民主」；扇形緩坡「順應」自然地形排水，賽馬節凝聚街區「同心」、「榮耀」與非商業化的在地身分「認同」。`
+          }
+        ],
+        conflicts: [
+          {
+            badge: `痛點一｜表四「異」對比`,
+            axis: `「擁抱變遷的再造包容（臺灣） vs. 對抗時間的固守排他（義大利）」`,
+            leftLabel: `臺灣側重：變遷再造與包容性`,
+            leftTitle: `歡迎多元親近與機能重塑`,
+            leftDesc: `河樂廣場將舊商場廢墟大膽改造成開放水域與都市空間，歡迎不同背景與世代自由進入，對機能轉型與外來參與具高度包容性。`,
+            rightLabel: `義大利側重：固守原貌與排他門檻`,
+            rightTitle: `極力維繫傳統儀式與歸屬邊界`,
+            rightDesc: `西恩納田野廣場極力維持中世紀紅磚原貌，且賽馬節「僅為了當地人獨特的身分文化、歸屬感」，對外來文化與當代機能變動具有較高的固守與排他門檻。`,
+            logic: `歸納邏輯：表四「異」欄直接揭示「臺灣：擁抱變遷的再造與包容性；義大利：對抗時間的固守與排他性」。`
+          },
+          {
+            badge: `痛點二｜表四跨文化價值矛盾覺察`,
+            axis: `「強調自由休閒空間（臺灣） vs. 成就秩序化、壓抑個體自由（義大利）」`,
+            leftLabel: `臺灣側重：自由休閒空間`,
+            leftTitle: `無拘束戲水與漫步體驗`,
+            leftDesc: `重視市民隨意走動、戲水與跨世代自由休憩的彈性，空間不被單一儀式所束縛。`,
+            rightLabel: `義大利側重：高度秩序化與集體規訓`,
+            rightTitle: `幾何向心規訓壓抑個體自由`,
+            rightDesc: `九條石灰華線與扇形幾何雖成就強烈的視覺向心力與集體榮譽感（「同心 unity」），但這種強烈的空間規訓也相對限縮了個體隨意使用空間的自由度。`,
+            logic: `歸納邏輯：表四「跨文化價值矛盾覺察」精準點出兩者張力在於個體自由休閒與集體幾何秩序的拉扯。`
+          }
+        ],
+        integrationValues: [
+          {
+            id: `v1`,
+            badge: `融合價值一`,
+            title: `集體凝聚向心力與開放包容共生廣場的共融`,
+            desc: `在義大利凝聚精神與集體認同之上，融入河樂廣場活態包容的都市空間，使扇形幾何轉化為全齡歡迎的開放共生廣場。`
+          },
+          {
+            id: `v2`,
+            badge: `融合價值二`,
+            title: `歷史印記延續與當代日常生活的有機對話`,
+            desc: `實踐「把歷史帶進日常」，讓中世紀紅磚歷史氛圍成為日常展演與市民休閒的背景，而非高不可攀的封閉古蹟。`
+          },
+          {
+            id: `v3`,
+            badge: `融合價值三`,
+            title: `順應自然地形與生態水景永續的都市共生`,
+            desc: `結合西恩納扇形緩坡排水智慧與臺南親水共融，打造文化、水景、生態與都市和諧共存的新地標。`
+          }
+        ],
+        designPoints: [
+          {
+            num: `01`,
+            coords: { x: 50, y: 34 },
+            shortName: `紅磚扇形中央廣場 & 賽馬跑道`,
+            title: `西恩納式紅磚扇形中央廣場與外環賽馬跑道`,
+            subtitle: `Red-Brick Fan-Shaped Central Plaza & Circular Horse Track`,
+            valueIds: [`v1`, `v2`],
+            valueLabels: [`融合價值一：凝聚與開放共生廣場共融`, `融合價值二：歷史與日常對話`],
+            conflictSolved: `化解義大利「固守排他、成就秩序化」與臺灣「擁抱變遷、強調自由日常」的衝突。`,
+            mechanism: `保留西恩納最具代表性的赭紅色磚塊、扇形向心分割地面與外環賽馬道，維持視覺向心力與歷史底蘊；但將中央廣場功能徹底開放為舉辦日常活動、展覽與演出的「共生廣場（Shared Coexistence Plaza）」，並以無障礙直線步道貫穿扇形廣場直通水岸，消除封閉排他感。`,
+            evidenceQuote: `“We adopted the red brick concept from Siena to create our Central Plaza, giving the space a historical and welcoming atmosphere. The plaza is designed for events, exhibitions, and performances, becoming the heart of our park.”`,
+            evidenceSource: `設計圖 Central Plaza (Event · Exhibition · Performance)；Part 1 英文講稿＆AI 指令講稿`
+          },
+          {
+            num: `02`,
+            coords: { x: 50, y: 56 },
+            shortName: `河樂式親水活動區 & 河岸水道`,
+            title: `河樂廣場式親水活動區與河岸水道`,
+            subtitle: `Water Activity Zone & Riverside Waterway`,
+            valueIds: [`v1`, `v3`],
+            valueLabels: [`融合價值一：開放包容共生廣場共融`, `融合價值三：生態水景共生`],
+            conflictSolved: `補足義大利廣場「秩序化壓抑個體自由」的缺口，注入臺灣「自由休閒與自然水域共融」。`,
+            mechanism: `在扇形廣場南側直接銜接源自臺南河樂廣場的「Water Activity Zone（親水活動區）」與「Riverside Waterway（河岸水道）」，透過層次分明的親水池與水岸步道，讓市民在體驗莊重扇形廣場後能立即走入水岸戲水、乘涼與自由放鬆。`,
+            evidenceQuote: `“Second, there is a large water plaza in the center. People can play in the water and relax... We also incorporated water features inspired by Taiwan's landscape, creating a relaxing riverside environment.”`,
+            evidenceSource: `設計圖 Water Activity Zone (Water · Leisure · Ecology) 與橫剖面圖；Part 2 英文講稿`
+          },
+          {
+            num: `03`,
+            coords: { x: 24, y: 80 },
+            shortName: `扇形坡地雨水回收灌溉系統`,
+            title: `扇形坡地雨水回收與灌溉系統`,
+            subtitle: `Fan-Shaped Drainage & Slope Section`,
+            valueIds: [`v3`, `v2`],
+            valueLabels: [`融合價值三：順應地形與水景永續`, `融合價值二：歷史與當代對話`],
+            conflictSolved: `將義大利「中世紀傳統排水防禦工法」轉化為臺灣「現代生態綠建築永續機能」。`,
+            mechanism: `將西恩納九條石灰華線與扇形緩坡原本防範災害的排水智慧，轉譯為現代生態循環機制——利用向中心傾斜的扇形坡度收集雨水，直接導引入中央親水湖泊與綠帶灌溉系統，讓古典工法成為支撐現代都市降溫綠洲的核心引擎。`,
+            evidenceQuote: `“Fan-Shaped Drainage & Slope Section: Collects rainwater and directs it to the central lake and landscape irrigation system.”`,
+            evidenceSource: `設計圖左下角 Fan-Shaped Drainage & Slope Section 剖面圖標註；Part 2 講稿`
+          },
+          {
+            num: `04`,
+            coords: { x: 76, y: 44 },
+            shortName: `微風綠帶步道 & 環形休憩平台`,
+            title: `微風綠帶步道與環形複合商業休憩平台`,
+            subtitle: `Green Breeze Promenade & West/East Platforms`,
+            valueIds: [`v1`, `v3`],
+            valueLabels: [`融合價值一：包容共生廣場共融`, `融合價值三：生態永續共生`],
+            conflictSolved: `化解義大利「歷史核心區封閉防禦性」與臺灣「多元族群無門檻休閒與日常機能」之張力。`,
+            mechanism: `在環形跑道外圍配置「Green Breeze Promenade（微風綠帶步道）」供市民散步與騎乘自行車，並於東西兩側平台與主建築規劃餐飲、零售與休憩空間，形成「內圈歷史向心凝聚、外圈自然綠意與生活商業開放流動」的複合公園結構。`,
+            evidenceQuote: `“Our park includes dining, shopping, and leisure areas, along with a green promenade for walking and cycling... Overall, our design combines historical elements, water, and greenery to create a lively and sustainable urban space.”`,
+            evidenceSource: `設計圖 Site Plan 與 Functional Zoning 標註；Part 2 英文講稿截圖`
+          }
+        ]
+      },
+
+      currency: {
+        id: `currency`,
+        code: `03｜貨幣組`,
+        shortLabel: `貨幣組`,
+        pairLabel: `臺南河樂廣場 × 澳洲伯斯北橋露天廣場`,
+        blueprintTitle: `貨幣組｜《The Spring Plaza Cultural Integration Concept》融合設計圖`,
+        blueprintMeta: `來源圖檔：貨幣組台澳融合空間概念圖（800 × 600 px）`,
+        blueprintCaption: `保留河樂廣場標誌性白色混凝土樑柱與淺水池主體，植入 LED 螢幕、垂直綠牆、市集與音樂舞台。`,
+        videoFile: `Video.mp4｜課堂英文口頭發表錄音`,
+        youtubeId: `JdhZOl7hJ_A`,
+        videoFormat: `概念空間展示影片 × 口頭答辯實錄`,
+        videoScenes: [
+          {
+            title: `片段 01｜人文科技（Humanistic Tech）活化歷史`,
+            tag: `焦點一`,
+            desc: `說明引入澳洲北橋大螢幕的目的不是純商業娛樂，而是作為播放臺南老照片與城市演變故事的活態歷史教科書。`,
+            en: `"Second, humanistic technology can help keep history alive. For example, now in The Spring can show images of Tainan's changing downtown... We wanted the screen to be more than just entertainment."`,
+            zh: `「第二，人文科技能讓歷史保持鮮活。例如河樂廣場的大螢幕能播放臺南市中心變遷影像……我們希望螢幕不只是娛樂工具。」`,
+            src: `來源：貨幣組課堂發表錄音轉錄`
+          },
+          {
+            title: `片段 02｜動靜分時機制與垂直生態降溫`,
+            tag: `焦點二`,
+            desc: `闡述如何透過垂直綠牆與「平日安靜親水、週末市集演唱」的分時運作，兼顧自然靜謐與商業經濟活力。`,
+            en: `"We should not hurt nature for economic growth and we should not stop public activity just to keep things quiet. The plaza can be a quiet water park space on normal days and host concerts or markets on some weekends."`,
+            zh: `「我們不該為了經濟成長傷害自然，也不該為了安靜而停止公共活動。廣場平日是寧靜的親水空間，部分週末則舉辦市集與演唱會。」`,
+            src: `來源：貨幣組課堂發表錄音轉錄`
+          },
+          {
+            title: `片段 03｜觀光回饋在地與個人／群體分區並存`,
+            tag: `焦點三`,
+            desc: `說明免費文化節慶與在地商家合作機制，以及現場音樂舞台與靜態水岸休憩區如何滿足不同使用者需求。`,
+            en: `"And tourism should also benefit local people. We can hold cultural festivals with local artists, community groups and local shops to make public events free... A public space can be for groups and for individuals."`,
+            zh: `「觀光也應回饋本地居民。我們可以與在地藝術家、社群與商家合辦免費文化節慶……公共空間可以同時屬於群體與個人。」`,
+            src: `來源：貨幣組課堂發表錄音轉錄`
+          }
+        ],
+        philosophyFormula: `CORE FORMULA · REFLECTION × NATURE × TECHNOLOGY × COHESION`,
+        philosophySlogan: `“Integrating Tainan's Natural Reflection with Australia's Technological Cohesion”`,
+        philosophySummary: `貨幣組透過「人文科技（Humanistic Tech）」作為跨文化橋樑，保留臺南河樂廣場對舊商場樑柱的歷史反思與親水靜謐，同時汲取澳洲北橋廣場的數位互動與節慶商業動能，達成「動靜分時」與「觀光回饋在地」的永續平衡。`,
+        sourceTag: `來源：1151107 國際休閒空間教材(貨幣組).pptx 表三、表四`,
+        cultureComparison: [
+          {
+            country: `臺灣｜臺南河樂廣場`,
+            site: `Taiwan · The Spring`,
+            isPartner: false,
+            genes: [`珍惜 Cherishing`, `和諧 Harmony`, `重生 Renewal`, `傳承 Heritage`, `貼近 Intimacy`, `延續 Continuity`],
+            evidence: `保留承載青春記憶的舊樑柱展現「珍惜」，硬冷混凝土轉化為親水空間體現人與自然「和諧」；不因沒落而放棄土地展現「重生」，讓歷史走出玻璃櫃、融入戲水日常的「貼近」。`
+          },
+          {
+            country: `澳洲｜伯斯北橋露天廣場`,
+            site: `Australia · Northbridge Piazza`,
+            isPartner: true,
+            genes: [`融合 Fusion`, `多元 Diverse`, `創新 Innovation`, `結合 Combine`, `互動 Interaction`, `促進 Promote`, `帶動 Boost`],
+            evidence: `將西澳金伯利地貌「融合」入都市，大螢幕提供電影與賽事轉播創造「多元」視聽與群眾「互動」；透過文化節慶「促進」族群交流並「帶動」周邊餐飲商店消費。`
+          }
+        ],
+        conflicts: [
+          {
+            badge: `核心痛點｜表四跨文化價值矛盾覺察`,
+            axis: `「自然靜謐與反思（臺灣：Tranquility） vs. 商業消費與科技（澳洲：Commercialism）」`,
+            leftLabel: `臺灣側重：反思與自然靜謐`,
+            leftTitle: `靜心懷舊與微氣候和諧`,
+            leftDesc: `河樂廣場保留舊樑柱讓市民靜心反思歷史，並順應低窪地形打造降溫水池；若過度強調靜態自然保護，可能缺乏經濟活力與大型社群動能。`,
+            rightLabel: `澳洲側重：科技、經濟與商業消費`,
+            rightTitle: `聲光人潮與消費活絡`,
+            rightDesc: `北橋廣場透過超大 LED 螢幕（數位營火）與節慶吸引觀光人潮帶動消費；但若過度追求商業人潮與聲光娛樂，則容易破壞環境的自然靜謐與在地人文深度。`,
+            logic: `歸納邏輯：表四「異」欄對比「臺灣：反思 (Reflection)、自然 (Nature)；澳洲：科技 (Technology)、經濟 (Economy)」，於矛盾覺察欄提煉為「商業消費 (Commercialism) vs. 自然靜謐 (Tranquility)」。`
+          }
+        ],
+        integrationValues: [
+          {
+            id: `v1`,
+            badge: `融合價值一`,
+            title: `人文科技與歷史活化（Humanistic Tech）`,
+            desc: `不讓科技淪為純商業娛樂工具，而是作為承載、轉譯並傳播臺南在地歷史記憶與舊城演變的活態媒介。`
+          },
+          {
+            id: `v2`,
+            badge: `融合價值二`,
+            title: `動靜平衡的自然生態與經濟商業共生`,
+            desc: `透過「平日靜謐親水、週末節慶市集」分時機制，結合在地商家免費活動，讓經濟效益回饋本地而不犧牲生態。`
+          },
+          {
+            id: `v3`,
+            badge: `融合價值三`,
+            title: `跨族群文化共融與社群凝聚`,
+            desc: `在 Reflection × Nature × Technology × Cohesion 公式下，兼顧「個人靜心休憩」與「群體節慶歡聚」雙重尺度。`
+          }
+        ],
+        designPoints: [
+          {
+            num: `01`,
+            coords: { x: 20, y: 44 },
+            shortName: `北橋式大型互動 LED 螢幕`,
+            title: `澳洲北橋式戶外大型互動螢幕（LED Screen）`,
+            subtitle: `Outdoor Films & Art Screenings`,
+            valueIds: [`v1`],
+            valueLabels: [`融合價值一：人文科技與歷史活化`],
+            conflictSolved: `扭轉臺灣「歷史反思靜謐」與澳洲「科技視聽商業娛樂」的對立，將科技化為歷史載體。`,
+            mechanism: `直接引入澳洲伯斯北橋露天廣場的「LED Screen」，但刻意轉化其純商業與體育轉播用途——設計圖呈現夕陽共賞畫面，並設定主要播放臺南市中心變遷歷史影像、舊照片與藝術電影，在保留白色舊樑柱的同時讓歷史故事鮮活重現。`,
+            evidenceQuote: `“Second, humanistic technology can help keep history alive. For example, now in The Spring can show images of Tainan's changing downtown... We wanted the screen to be more than just entertainment.”`,
+            evidenceSource: `設計圖左側 LED Screen；貨幣組課堂發表錄音轉錄`
+          },
+          {
+            num: `02`,
+            coords: { x: 45, y: 62 },
+            shortName: `垂直生態綠牆 & 親水降溫區`,
+            title: `垂直生態綠牆與河樂廣場式親水降溫區`,
+            subtitle: `Green Wall & The Spring Water Pool`,
+            valueIds: [`v2`],
+            valueLabels: [`融合價值二：動靜平衡的自然生態與經濟商業共生`],
+            conflictSolved: `直接化解澳洲「商業消費人潮活絡」與臺灣「自然靜謐與微氣候平衡」的核心痛點。`,
+            mechanism: `保留河樂廣場白色混凝土柱列與中央淺水戲水池，並於立面增設大面積「Green Wall（垂直生態綠牆）」進行降溫與永續固碳。搭配「平日安靜親水閱讀、週末舉辦限定市集與演唱會」的動靜分時機制，維持自然寧靜也保有節慶活力。`,
+            evidenceQuote: `“We should not hurt nature for economic growth and we should not stop public activity just to keep things quiet. The plaza can be a quiet water park space on normal days and host concerts or markets on some weekends.”`,
+            evidenceSource: `設計圖 Green Wall 標註與階梯戲水場景；貨幣組課堂發表錄音`
+          },
+          {
+            num: `03`,
+            coords: { x: 80, y: 56 },
+            shortName: `文化展覽與多元節慶市集區`,
+            title: `文化展覽與多元文化節慶市集區`,
+            subtitle: `Cultural Exhibition / Festivals`,
+            valueIds: [`v2`, `v3`],
+            valueLabels: [`融合價值二：生態與商業共生`, `融合價值三：跨族群文化共融`],
+            conflictSolved: `平衡澳洲「商業消費帶動觀光經濟」與臺灣「在地文化認同與歷史傳承」。`,
+            mechanism: `於設計圖右側舊混凝土樑柱下方設置木質展架與攤位，懸掛澳洲袋鼠與臺灣花卉旗幟，展出舊中國城商場演變歷史照片與多元文化藝術品；並與在地藝術家、社群及本地商店合辦免費文化節慶，讓觀光消費直接回饋在地社群。`,
+            evidenceQuote: `“And tourism should also benefit local people. We can hold cultural festivals with local artists, community groups and local shops to make public events free. This supports local identity and culture.”`,
+            evidenceSource: `設計圖右側 Cultural Exhibition / Festivals；課堂發表錄音`
+          },
+          {
+            num: `04`,
+            coords: { x: 54, y: 36 },
+            shortName: `戶外現場音樂展演舞台`,
+            title: `戶外現場音樂展演舞台`,
+            subtitle: `Live Music Events — Outdoor Performances and Multicultural Exchanges`,
+            valueIds: [`v3`, `v2`],
+            valueLabels: [`融合價值三：跨族群共融與凝聚`, `融合價值二：動靜平衡共生`],
+            conflictSolved: `兼顧澳洲「群體視聽凝聚（Cohesion）」與臺灣「個體靜謐休憩（Tranquility）」。`,
+            mechanism: `於中央水池與舊樑柱交界處設置木質戶外音樂舞台，節日邀請本地與國際音樂團體現場演出促成跨文化共鳴；同時在空間尺度上將舞台區與水池、綠牆休憩階梯區隔，讓喜愛熱鬧群聚與需要安靜獨處的人各有其所。`,
+            evidenceQuote: `“A public space can be for groups and for individuals. The plaza can have an activity space for performances and a quiet space for rest. People can enjoy big events and sit along by the water.”`,
+            evidenceSource: `設計圖中央後方 Live Music Events；貨幣組課堂發表錄音`
+          }
+        ]
+      },
+
+      fashion: {
+        id: `fashion`,
+        code: `04｜服裝組`,
+        shortLabel: `服裝組`,
+        pairLabel: `臺南河樂廣場 × 澳洲伯斯北橋露天廣場`,
+        blueprintTitle: `服裝組｜《Cultural Coexistence Plaza》文化共存廣場藍圖`,
+        blueprintMeta: `來源圖檔：服裝組文化共存廣場概念設計圖（800 × 600 px）`,
+        blueprintCaption: `全區明確劃分 Heritage Preservation Zone、Community Gathering Platform 與 Innovation & Interaction Zone 三大場域。`,
+        videoFile: `video_1.mp4｜英文設計理念講稿與錄音`,
+        youtubeId: `P_1MmbEFmNE`,
+        videoFormat: `設計概念導覽影片 × 雙語實錄`,
+        videoScenes: [
+          {
+            title: `導覽 01｜左側歷史遺構保存區與無障礙親近`,
+            tag: `ZONE 01`,
+            desc: `引導觀眾走入廣場左側保存下來的紅磚牆柱與舊街區紋理，強調讓所有背景的人都能認識在地歷史。`,
+            en: `"First, you'll see a big zone of heritage preservation. Here is where you admire the left building... We keep parts of the old buildings such as walls and pillars. We also keep the old street design."`,
+            zh: `「首先你會看到大片的遺產保存區，在這裡欣賞左側老建築……我們保留了牆面、柱體與舊街區設計。」`,
+            src: `來源：服裝組 video_1.mp4 英文講稿截圖與課堂發表錄音`
+          },
+          {
+            title: `導覽 02｜中央親水池與下沉式共生廣場平台`,
+            tag: `ZONE 02`,
+            desc: `保留河樂廣場戲水記憶，並緊鄰下沉圓形聚會平台與市集帳篷，創造街頭藝人、家庭與跨族群交流的核心場域。`,
+            en: `"Then it's the gathering platform where you can chat, relax, and listen to street performers' music. Third, there's the pool we saved from The Spring, where you share warm memories with fams."`,
+            zh: `「接著是能聊天、放鬆與聆聽街頭藝人音樂的聚會平台；第三則是我們從河樂廣場保留下來的親水池，讓家人共享溫暖回憶。」`,
+            src: `來源：服裝組 video_1.mp4 及英文設計理念文稿`
+          },
+          {
+            title: `導覽 03｜右側北橋式大型互動光影螢幕`,
+            tag: `ZONE 03`,
+            desc: `介紹如何借鑒澳洲北橋大螢幕，以台灣傳統燈籠與櫻花光影互動取代單調牆面，把傳統文化變成有趣的數位體驗。`,
+            en: `"Last, the big screen from the Northbridge Plaza, that the place where everyone gather and cheer for the same thing... People can learn about traditional culture in the fun."`,
+            zh: `「最後是源自北橋廣場的大螢幕，成為眾人聚集共鳴的焦點……人們能在趣味互動中認識傳統文化。」`,
+            src: `來源：服裝組 video_1.mp4 講稿與課堂錄音轉錄`
+          }
+        ],
+        philosophyFormula: `CORE SLOGAN · PRESERVE HISTORY · RENEW WITH INNOVATION · CELEBRATE DIVERSITY`,
+        philosophySlogan: `“Preserve History · Renew with Innovation · Celebrate Diversity. Share a Better Life”`,
+        philosophySummary: `服裝組將澳洲強大的「社群凝聚力」與臺灣的「傳統文化與親水日常」揉合為一，主張歷史不應只是靜態懷舊，而需透過無門檻公共平台與數位互動光影，讓跨族群與跨世代在同一座共生廣場中自然相遇、交換想法並延續文化。`,
+        sourceTag: `來源：1151114 國際休閒空間(服裝組).pptx 表三、表四`,
+        cultureComparison: [
+          {
+            country: `臺灣｜臺南河樂廣場`,
+            site: `Taiwan · The Spring`,
+            isPartner: false,
+            genes: [`重生 Reborn`, `傳承 Pass Down`, `融合 Fusion`],
+            evidence: `讓老舊中國城建築融入市民戲水與日常生活實現「重生」，把老建築蘊含的地方文化記憶向下「傳承」，並將城市建築與自然水景溫柔「融合」。`
+          },
+          {
+            country: `澳洲｜伯斯北橋露天廣場`,
+            site: `Australia · Northbridge Piazza`,
+            isPartner: true,
+            genes: [`革新 Innovative`, `參與 Participation`, `凝聚 Cohesive`],
+            evidence: `明亮大螢幕打破傳統牆面單調展現「革新」，將單向觀看轉化為雙向群眾共鳴促成「參與」，並將多元背景市民聚集一起強化地方社群「凝聚」。`
+          }
+        ],
+        conflicts: [
+          {
+            badge: `核心痛點｜表四「異」與跨文化價值矛盾覺察`,
+            axis: `「凝聚（Cohesive） vs. 傳承（Pass Down）」＆「傳承 vs. 革新（Innovative）」`,
+            leftLabel: `臺灣側重：歷史傳承與自然共生`,
+            leftTitle: `保留舊建築紋理 vs. 互動吸引力有限`,
+            leftDesc: `透過保留舊中國城遺構承載在地歷史記憶；但若過度聚焦特定舊建築的靜態保存與懷舊氛圍，對不同文化背景與年輕世代的即時互動吸引力相對有限。`,
+            rightLabel: `澳洲側重：當代革新與社群凝聚`,
+            rightTitle: `全面區域創新 vs. 抹除歷史根基`,
+            rightDesc: `透過大型 LED 螢幕與現代開放廣場（「創新整個區域」）迅速凝聚人群；但若全盤追求科技創新與區域重建，則可能抹除土地原有的歷史痕跡與文化深度。`,
+            logic: `歸納邏輯：表四「異」欄指出河樂廣場保留以前建築而不破壞，北橋廣場則是創新整個區域；於「矛盾覺察」欄進一步將此張力提煉為「凝聚 (cohesive) vs. 傳承 (pass down)」。`
+          }
+        ],
+        integrationValues: [
+          {
+            id: `v1`,
+            badge: `融合價值一`,
+            title: `歷史傳承與當代革新的空間對話`,
+            desc: `結合臺灣保留舊建築傳承文化與澳洲以現代科技創新場域，讓「空間深度（古今對話）」與「空間廣度（多元相遇）」並存。`
+          },
+          {
+            id: `v2`,
+            badge: `融合價值二`,
+            title: `澳洲社群凝聚精神與台灣傳統／生活文化的共融`,
+            desc: `呼應北橋廣場的社群凝聚與河樂廣場的日常自然融合，讓傳統文化與新想法在社群歡聚中共同發酵。`
+          },
+          {
+            id: `v3`,
+            badge: `融合價值三`,
+            title: `跨族群與跨世代的無門檻共享連結`,
+            desc: `汲取台澳兩地共通的「親身參與」基因，透過無障礙動線、公共圖騰與聚會平台讓不同背景的人交換想法、延續文化。`
+          }
+        ],
+        designPoints: [
+          {
+            num: `01`,
+            coords: { x: 22, y: 46 },
+            shortName: `歷史遺構保存區 Heritage Zone`,
+            title: `歷史遺構保存區（保留紅磚牆柱與舊街區紋理）`,
+            subtitle: `Heritage Preservation Zone`,
+            valueIds: [`v1`, `v3`],
+            valueLabels: [`融合價值一：歷史與革新對話`, `融合價值三：無門檻共享連結`],
+            conflictSolved: `正面回應臺灣「保留舊建築傳承（pass down）」與澳洲「創新整個區域（Innovative）」的衝突。`,
+            mechanism: `未將舊建築拆除，而是將廣場左側完整劃設為「Heritage Preservation Zone」，保留斑駁紅磚牆體、圓柱與舊街區基座，搭配現代鋼構保護架與圖文解說牌，並在前景設置無障礙坡道與導盲磚，讓所有市民與輪椅使用者皆能無門檻親近歷史。`,
+            evidenceQuote: `“First, you'll see a big zone of heritage preservation. Here is where you admire the left building.” / “We keep parts of the old buildings such as walls and pillars. We also keep the old street design.”`,
+            evidenceSource: `《Cultural Coexistence Plaza》左側標註；video_1.mp4 講稿與錄音轉錄`
+          },
+          {
+            num: `02`,
+            coords: { x: 78, y: 44 },
+            shortName: `北橋式互動數位螢幕`,
+            title: `澳洲北橋式大型互動數位螢幕`,
+            subtitle: `Innovation & Interaction Zone / Big Screen`,
+            valueIds: [`v1`, `v2`],
+            valueLabels: [`融合價值一：歷史與革新對話`, `融合價值二：社群凝聚與台灣文化共融`],
+            conflictSolved: `化解臺灣「靜態歷史傳承（pass down）」與澳洲「科技互動與群眾凝聚（cohesive）」的落差。`,
+            mechanism: `引入澳洲北橋露天廣場的「Big Screen」，將原本靜態、僅屬於老一輩的歷史記憶，轉化為視覺化、可觸控互動的數位光影展演——螢幕呈現臺灣傳統燈籠、櫻花與歷史建築線稿並供親子伸手觸控，以澳洲式科技凝聚力活化並傳承臺灣傳統文化。`,
+            evidenceQuote: `“Last, the big screen from the Northbridge Plaza, that the place where everyone gather and cheer for the same thing.” / “People can learn about traditional culture in the fun.”`,
+            evidenceSource: `《Cultural Coexistence Plaza》右側 Innovation & Interaction Zone；英文講稿與錄音`
+          },
+          {
+            num: `03`,
+            coords: { x: 50, y: 66 },
+            shortName: `河樂親水池 & 下沉式共生廣場平台`,
+            title: `河樂廣場式親水池與下沉式共生廣場聚會平台`,
+            subtitle: `The Spring Water Pool & Community Gathering Platform`,
+            valueIds: [`v2`, `v3`],
+            valueLabels: [`融合價值二：社群凝聚與生活文化共融`, `融合價值三：跨世代無門檻共享連結`],
+            conflictSolved: `整合臺灣「親子日常休憩與自然融合」及澳洲「跨族群社群聚集與展演參與」。`,
+            mechanism: `於廣場中央整合兩國優點：前景保留河樂廣場標誌性的淺水親水池與圓形踏石供孩童戲水；緊鄰其後設置圓形下沉式「Community Gathering Platform」，安排街頭藝人演奏、環繞木質階梯座椅與跨文化市集帳篷，讓親子休憩與跨族群社群展演在共生廣場中自然交融。`,
+            evidenceQuote: `“Then it's the gathering platform where you can chat, relax, and listen to street performers' music. Third, there's the pool we saved from The Spring, where you share warm memories with fams.”`,
+            evidenceSource: `《Cultural Coexistence Plaza》中央標註「Celebrate Diversity. Share a Better Life」；英文設計理念與講稿`
+          }
+        ]
+      }
+    };
+
+    let currentTeamId = `station`;
+    let currentPointIdx = 0;
+    let currentVideoSceneIdx = 0;
+    let hotspotsVisible = true;
+
+    function selectTeam(teamId) {
+      if (!TEAMS_DATA[teamId]) return;
+      currentTeamId = teamId;
+      currentPointIdx = 0;
+      currentVideoSceneIdx = 0;
+
+      // Update tabs
+      const allIds = Object.keys(TEAMS_DATA);
+      for (let i = 0; i < allIds.length; i++) {
+        const id = allIds[i];
+        const tabBtn = document.getElementById(`tab-` + id);
+        if (tabBtn) {
+          const isActive = id === teamId;
+          tabBtn.classList.toggle(`is-active`, isActive);
+          tabBtn.setAttribute(`aria-selected`, isActive ? `true` : `false`);
+        }
+        const fig = document.getElementById(`fig-` + id);
+        if (fig) {
+          fig.classList.toggle(`is-active`, id === teamId);
+        }
+      }
+
+      renderTeamWorkspace();
+    }
+
+    function selectDesignPoint(idx, shouldScrollToDetail) {
+      const team = TEAMS_DATA[currentTeamId];
+      if (!team || idx < 0 || idx >= team.designPoints.length) return;
+      currentPointIdx = idx;
+      renderBlueprintHotspots();
+      renderDesignPointDetail();
+      renderVerificationTable();
+      if (shouldScrollToDetail) {
+        const target = document.getElementById(`stage-4`);
+        if (target && typeof target.scrollIntoView === `function`) {
+          target.scrollIntoView({ behavior: `smooth`, block: `start` });
+        }
+      }
+    }
+
+    function selectVideoScene(idx) {
+      const team = TEAMS_DATA[currentTeamId];
+      if (!team || idx < 0 || idx >= team.videoScenes.length) return;
+      currentVideoSceneIdx = idx;
+      renderVideoPanel();
+    }
+
+    function toggleHotspots() {
+      hotspotsVisible = !hotspotsVisible;
+      const stage = document.getElementById(`blueprint-stage`);
+      const btn = document.getElementById(`toggle-nodes-btn`);
+      const txt = document.getElementById(`toggle-nodes-text`);
+      if (stage) {
+        stage.classList.toggle(`nodes-hidden`, !hotspotsVisible);
+      }
+      if (btn) {
+        btn.setAttribute(`aria-pressed`, hotspotsVisible ? `true` : `false`);
+      }
+      if (txt) {
+        txt.textContent = hotspotsVisible ? `隱藏藍圖節點標記` : `顯示藍圖節點標記`;
+      }
+    }
+
+    function renderTeamWorkspace() {
+      const team = TEAMS_DATA[currentTeamId];
+      if (!team) return;
+
+      const s1Pair = document.getElementById(`s1-pair-badge`);
+      if (s1Pair) s1Pair.textContent = team.pairLabel;
+
+      const bpTitle = document.getElementById(`blueprint-work-title`);
+      if (bpTitle) bpTitle.textContent = team.blueprintTitle;
+
+      const bpMeta = document.getElementById(`blueprint-work-meta`);
+      if (bpMeta) bpMeta.textContent = team.blueprintMeta;
+
+      const bpCap = document.getElementById(`blueprint-caption`);
+      if (bpCap) bpCap.textContent = team.blueprintCaption;
+
+      renderBlueprintHotspots();
+      renderVideoPanel();
+      renderPhilosophyAndTable3();
+      renderConflicts();
+      renderFusionPillars();
+      renderDesignPointList();
+      renderDesignPointDetail();
+      renderVerificationTable();
+    }
+
+    function renderBlueprintHotspots() {
+      const team = TEAMS_DATA[currentTeamId];
+      if (!team) return;
+
+      const layer = document.getElementById(`hotspots-` + team.id);
+      if (layer) {
+        layer.innerHTML = ``;
+        for (let i = 0; i < team.designPoints.length; i++) {
+          const dp = team.designPoints[i];
+          const btn = document.createElement(`button`);
+          btn.type = `button`;
+          btn.className = `hotspot-pin` + (i === currentPointIdx ? ` is-selected` : ``);
+          btn.style.left = dp.coords.x + `%`;
+          btn.style.top = dp.coords.y + `%`;
+          btn.setAttribute(`aria-label`, `設計點 ` + dp.num + `：` + dp.shortName);
+          btn.onclick = (function(index) {
+            return function() { selectDesignPoint(index, true); };
+          })(i);
+
+          const badge = document.createElement(`span`);
+          badge.className = `hotspot-badge`;
+          badge.textContent = dp.num + ` ` + dp.shortName;
+          btn.appendChild(badge);
+          layer.appendChild(btn);
+        }
+      }
+
+      const strip = document.getElementById(`quick-node-strip`);
+      if (strip) {
+        strip.innerHTML = ``;
+        for (let j = 0; j < team.designPoints.length; j++) {
+          const item = team.designPoints[j];
+          const qBtn = document.createElement(`button`);
+          qBtn.type = `button`;
+          qBtn.className = `quick-node-btn` + (j === currentPointIdx ? ` is-selected` : ``);
+          qBtn.textContent = item.num + `｜` + item.shortName;
+          qBtn.onclick = (function(index) {
+            return function() { selectDesignPoint(index, true); };
+          })(j);
+          strip.appendChild(qBtn);
+        }
+      }
+    }
+
+    function renderVideoPanel() {
+      const team = TEAMS_DATA[currentTeamId];
+      if (!team) return;
+      const scene = team.videoScenes[currentVideoSceneIdx] || team.videoScenes[0];
+
+      const vFile = document.getElementById(`video-filename`);
+      if (vFile) vFile.textContent = team.videoFile;
+
+      const vFrame = document.getElementById(`video-embed-frame`);
+      const embedUrl = `https://www.youtube.com/embed/` + team.youtubeId;
+      if (vFrame && team.youtubeId && vFrame.getAttribute(`src`) !== embedUrl) {
+        vFrame.setAttribute(`src`, embedUrl);
+        vFrame.setAttribute(`title`, team.shortLabel + ` 發表與空間導覽實錄影片`);
+      }
+
+      const vLink = document.getElementById(`video-watch-link`);
+      if (vLink && team.youtubeId) {
+        vLink.setAttribute(`href`, `https://www.youtube.com/watch?v=` + team.youtubeId);
+      }
+
+      const vExtText = document.getElementById(`video-external-text`);
+      if (vExtText) vExtText.textContent = `在 YouTube 開啟` + team.shortLabel + `原始影片 ↗`;
+
+      const vFmt = document.getElementById(`video-format-label`);
+      if (vFmt) vFmt.textContent = team.videoFormat;
+
+      const vIdx = document.getElementById(`video-active-scene-idx`);
+      if (vIdx) vIdx.textContent = `SCENE 0` + (currentVideoSceneIdx + 1) + ` / 0` + team.videoScenes.length;
+
+      const vTitle = document.getElementById(`video-scene-title`);
+      if (vTitle) vTitle.textContent = scene.title;
+
+      const vDesc = document.getElementById(`video-scene-desc`);
+      if (vDesc) vDesc.textContent = scene.desc;
+
+      const vEn = document.getElementById(`video-quote-en`);
+      if (vEn) vEn.textContent = scene.en;
+
+      const vZh = document.getElementById(`video-quote-zh`);
+      if (vZh) vZh.textContent = scene.zh;
+
+      const vSrc = document.getElementById(`video-quote-src`);
+      if (vSrc) vSrc.textContent = scene.src;
+
+      const beatsContainer = document.getElementById(`video-beats`);
+      if (beatsContainer) {
+        beatsContainer.innerHTML = ``;
+        for (let i = 0; i < team.videoScenes.length; i++) {
+          const s = team.videoScenes[i];
+          const btn = document.createElement(`button`);
+          btn.type = `button`;
+          btn.className = `video-beat-btn` + (i === currentVideoSceneIdx ? ` is-active` : ``);
+          btn.onclick = (function(index) {
+            return function() { selectVideoScene(index); };
+          })(i);
+
+          const head = document.createElement(`div`);
+          head.className = `video-beat-head`;
+
+          const titleSpan = document.createElement(`span`);
+          titleSpan.textContent = s.title;
+
+          const tagSpan = document.createElement(`span`);
+          tagSpan.className = `video-beat-tag`;
+          tagSpan.textContent = s.tag;
+
+          head.appendChild(titleSpan);
+          head.appendChild(tagSpan);
+          btn.appendChild(head);
+          beatsContainer.appendChild(btn);
+        }
+      }
+    }
+
+    function renderPhilosophyAndTable3() {
+      const team = TEAMS_DATA[currentTeamId];
+      if (!team) return;
+
+      const formulaEl = document.getElementById(`philosophy-formula`);
+      if (formulaEl) formulaEl.textContent = team.philosophyFormula;
+
+      const sloganEl = document.getElementById(`philosophy-slogan`);
+      if (sloganEl) sloganEl.textContent = team.philosophySlogan;
+
+      const summaryEl = document.getElementById(`philosophy-summary`);
+      if (summaryEl) summaryEl.textContent = team.philosophySummary;
+
+      const srcTagEl = document.getElementById(`s2-source-tag`);
+      if (srcTagEl) srcTagEl.textContent = team.sourceTag;
+
+      const grid = document.getElementById(`culture-compare-grid`);
+      if (!grid) return;
+      grid.innerHTML = ``;
+
+      for (let i = 0; i < team.cultureComparison.length; i++) {
+        const c = team.cultureComparison[i];
+        const card = document.createElement(`article`);
+        card.className = `culture-card`;
+
+        const head = document.createElement(`div`);
+        head.className = `culture-card-head`;
+
+        const h3 = document.createElement(`h3`);
+        h3.className = `culture-country`;
+        h3.textContent = c.country;
+
+        const siteSpan = document.createElement(`span`);
+        siteSpan.className = `culture-site`;
+        siteSpan.textContent = c.site;
+
+        head.appendChild(h3);
+        head.appendChild(siteSpan);
+        card.appendChild(head);
+
+        const tags = document.createElement(`div`);
+        tags.className = `gene-tags`;
+        for (let j = 0; j < c.genes.length; j++) {
+          const tag = document.createElement(`span`);
+          tag.className = `gene-tag` + (c.isPartner ? ` is-partner` : ``);
+          tag.textContent = c.genes[j];
+          tags.appendChild(tag);
+        }
+        card.appendChild(tags);
+
+        const p = document.createElement(`p`);
+        p.className = `culture-evidence`;
+        p.textContent = c.evidence;
+        card.appendChild(p);
+
+        grid.appendChild(card);
+      }
+    }
+
+    function renderConflicts() {
+      const team = TEAMS_DATA[currentTeamId];
+      const stack = document.getElementById(`conflict-stack`);
+      if (!team || !stack) return;
+      stack.innerHTML = ``;
+
+      for (let i = 0; i < team.conflicts.length; i++) {
+        const cf = team.conflicts[i];
+        const card = document.createElement(`article`);
+        card.className = `conflict-card`;
+
+        const header = document.createElement(`div`);
+        header.className = `conflict-header`;
+
+        const pill = document.createElement(`span`);
+        pill.className = `conflict-pill`;
+        pill.textContent = cf.badge;
+
+        header.appendChild(pill);
+        card.appendChild(header);
+
+        const h3 = document.createElement(`h3`);
+        h3.className = `conflict-axis-title`;
+        h3.textContent = cf.axis;
+        card.appendChild(h3);
+
+        const diagram = document.createElement(`div`);
+        diagram.className = `tension-diagram`;
+
+        const leftPole = document.createElement(`div`);
+        leftPole.className = `tension-pole`;
+        leftPole.innerHTML = `<span class="tension-pole-label">` + cf.leftLabel + `</span><p class="tension-pole-title">` + cf.leftTitle + `</p><p class="tension-pole-desc">` + cf.leftDesc + `</p>`;
+
+        const vs = document.createElement(`div`);
+        vs.className = `tension-vs`;
+        vs.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M3 12h18"></path></svg><span>VALUE TENSION</span>`;
+
+        const rightPole = document.createElement(`div`);
+        rightPole.className = `tension-pole`;
+        rightPole.innerHTML = `<span class="tension-pole-label">` + cf.rightLabel + `</span><p class="tension-pole-title">` + cf.rightTitle + `</p><p class="tension-pole-desc">` + cf.rightDesc + `</p>`;
+
+        diagram.appendChild(leftPole);
+        diagram.appendChild(vs);
+        diagram.appendChild(rightPole);
+        card.appendChild(diagram);
+
+        const logicP = document.createElement(`p`);
+        logicP.className = `conflict-logic`;
+        logicP.textContent = cf.logic;
+        card.appendChild(logicP);
+
+        stack.appendChild(card);
+      }
+    }
+
+    function renderFusionPillars() {
+      const team = TEAMS_DATA[currentTeamId];
+      const grid = document.getElementById(`fusion-values-grid`);
+      if (!team || !grid) return;
+
+      const activeDp = team.designPoints[currentPointIdx] || team.designPoints[0];
+      grid.innerHTML = ``;
+
+      for (let i = 0; i < team.integrationValues.length; i++) {
+        const val = team.integrationValues[i];
+        const isHighlighted = activeDp && activeDp.valueIds.indexOf(val.id) !== -1;
+
+        const card = document.createElement(`div`);
+        card.className = `fusion-pillar` + (isHighlighted ? ` is-highlighted` : ``);
+
+        const badge = document.createElement(`span`);
+        badge.className = `fusion-pillar-badge`;
+        badge.textContent = val.badge + (isHighlighted ? ` · 當前設計點對應` : ``);
+
+        const h3 = document.createElement(`h3`);
+        h3.className = `fusion-pillar-title`;
+        h3.textContent = val.title;
+
+        const p = document.createElement(`p`);
+        p.className = `fusion-pillar-desc`;
+        p.textContent = val.desc;
+
+        card.appendChild(badge);
+        card.appendChild(h3);
+        card.appendChild(p);
+        grid.appendChild(card);
+      }
+    }
+
+    function renderDesignPointList() {
+      const team = TEAMS_DATA[currentTeamId];
+      const list = document.getElementById(`dp-list`);
+      if (!team || !list) return;
+      list.innerHTML = ``;
+
+      for (let i = 0; i < team.designPoints.length; i++) {
+        const dp = team.designPoints[i];
+        const btn = document.createElement(`button`);
+        btn.type = `button`;
+        btn.className = `dp-trigger` + (i === currentPointIdx ? ` is-selected` : ``);
+        btn.setAttribute(`role`, `option`);
+        btn.setAttribute(`aria-selected`, i === currentPointIdx ? `true` : `false`);
+        btn.onclick = (function(index) {
+          return function() { selectDesignPoint(index, false); };
+        })(i);
+
+        const top = document.createElement(`div`);
+        top.className = `dp-trigger-top`;
+
+        const num = document.createElement(`span`);
+        num.className = `dp-num`;
+        num.textContent = `設計點 ` + dp.num;
+
+        const chip = document.createElement(`span`);
+        chip.className = `dp-value-chip`;
+        chip.textContent = dp.valueLabels[0];
+
+        top.appendChild(num);
+        top.appendChild(chip);
+
+        const title = document.createElement(`span`);
+        title.className = `dp-trigger-title`;
+        title.textContent = dp.title;
+
+        btn.appendChild(top);
+        btn.appendChild(title);
+        list.appendChild(btn);
+      }
+    }
+
+    function renderDesignPointDetail() {
+      const team = TEAMS_DATA[currentTeamId];
+      const panel = document.getElementById(`dp-detail-panel`);
+      const indicator = document.getElementById(`s4-active-indicator`);
+      if (!team || !panel) return;
+
+      const dp = team.designPoints[currentPointIdx] || team.designPoints[0];
+      if (indicator) indicator.textContent = `已選取：設計點 ` + dp.num + `（` + dp.shortName + `）`;
+
+      // Sync left list selection & top fusion pillars
+      const triggers = document.querySelectorAll(`#dp-list .dp-trigger`);
+      for (let i = 0; i < triggers.length; i++) {
+        const isSel = i === currentPointIdx;
+        triggers[i].classList.toggle(`is-selected`, isSel);
+        triggers[i].setAttribute(`aria-selected`, isSel ? `true` : `false`);
+      }
+      renderFusionPillars();
+
+      let chipsHtml = ``;
+      for (let j = 0; j < dp.valueLabels.length; j++) {
+        chipsHtml += `<span class="fusion-pillar-badge">` + dp.valueLabels[j] + `</span>`;
+      }
+
+      panel.innerHTML =
+        `<div class="dp-detail-head">` +
+          `<div class="dp-detail-kicker">` +
+            `<span class="index-num">POINT ` + dp.num + `</span>` +
+            chipsHtml +
+          `</div>` +
+          `<h3 class="dp-detail-title">` + dp.title + `</h3>` +
+          `<span class="dp-detail-sub">` + dp.subtitle + `</span>` +
+        `</div>` +
+        `<div class="dp-block">` +
+          `<span class="dp-block-label">化解之台外跨文化價值矛盾（痛點對應）</span>` +
+          `<div class="dp-resolve-banner">` + dp.conflictSolved + `</div>` +
+        `</div>` +
+        `<div class="dp-block">` +
+          `<span class="dp-block-label">互動空間轉譯做法與體驗機制</span>` +
+          `<p class="dp-mechanism-text">` + dp.mechanism + `</p>` +
+        `</div>` +
+        `<div class="dp-evidence-box">` +
+          `<span class="dp-block-label">作品圖說與學生發表原始佐證</span>` +
+          `<p class="dp-evidence-quote">` + dp.evidenceQuote + `</p>` +
+          `<span class="video-quote-src">` + dp.evidenceSource + `</span>` +
+        `</div>`;
+    }
+
+    function renderVerificationTable() {
+      const team = TEAMS_DATA[currentTeamId];
+      const tbody = document.getElementById(`verification-table-body`);
+      if (!team || !tbody) return;
+      tbody.innerHTML = ``;
+
+      for (let i = 0; i < team.designPoints.length; i++) {
+        const dp = team.designPoints[i];
+        const tr = document.createElement(`tr`);
+        if (i === currentPointIdx) {
+          tr.className = `is-active-row`;
+        }
+        tr.innerHTML =
+          `<td><strong>` + dp.num + `｜` + dp.shortName + `</strong><br><span class="dossier-meta">` + dp.subtitle + `</span></td>` +
+          `<td>` + dp.valueLabels.join(`<br>`) + `</td>` +
+          `<td>` + dp.conflictSolved + `</td>` +
+          `<td>` + dp.evidenceQuote + `</td>`;
+        tbody.appendChild(tr);
+      }
+    }
+
+    // Initialize on load
+    renderTeamWorkspace();
+  </script>
+</body>
+</html>
